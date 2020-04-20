@@ -1,8 +1,6 @@
-// Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
-
 #pragma once
 
-#include "SlateCore/Public/Widgets/SCompoundWidget.h"
+#include "Widgets/SCompoundWidget.h"
 #include "Styling/CoreStyle.h"
 #include "LoadingScreenSettings.h"
 
