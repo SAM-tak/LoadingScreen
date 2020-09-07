@@ -1,15 +1,11 @@
 #include "ILoadingScreenModule.h"
 #include "LoadingScreenSettings.h"
+#include "LoadingScreenLog.h"
 #include "SSimpleLoadingScreen.h"
 #include "Framework/Application/SlateApplication.h"
 #include "Widgets/SViewport.h"
 
-#include "Runtime/Core/Public/Logging/LogMacros.h"
-
 #define LOCTEXT_NAMESPACE "LoadingScreen"
-
-DECLARE_LOG_CATEGORY_EXTERN(LogLoadingScreen, Verbose, All);
-DEFINE_LOG_CATEGORY(LogLoadingScreen);
 
 class FLoadingScreenModule : public ILoadingScreenModule
 {
@@ -84,7 +80,7 @@ void FLoadingScreenModule::ShutdownModule()
 
 void FLoadingScreenModule::TestLoadingScreen(const FLoadingScreenDescription& ScreenDescription)
 {
-	UE_LOG(LogLoadingScreen, Verbose, TEXT("TestLoadingScreen"));
+	UE_LOG(LoadingScreenLog, Verbose, TEXT("TestLoadingScreen"));
 	if (FSlateApplication::IsInitialized())
 	{
 		auto widgetLoadingScreen = SNew(SSimpleLoadingScreen, ScreenDescription)

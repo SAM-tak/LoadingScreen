@@ -1,4 +1,5 @@
 #include "SSimpleLoadingScreen.h"
+#include "LoadingScreenLog.h"
 
 #include "Slate/DeferredCleanupSlateBrush.h"
 #include "Widgets/Layout/SScaleBox.h"
@@ -272,6 +273,7 @@ void SSimpleLoadingScreen::Tick(const FGeometry& AllottedGeometry, const double 
 
 void SSimpleLoadingScreen::HandleMoviesFinishedPlaying()
 {
+	UE_LOG(LoadingScreenLog, Log, TEXT("SSimpleLoadingScreen::HandleMoviesFinishedPlaying"));
 	// Show the background if we're allowed to
 	if (ScreenDescriptionInfo.bShowImagesAfterMovies)
 	{

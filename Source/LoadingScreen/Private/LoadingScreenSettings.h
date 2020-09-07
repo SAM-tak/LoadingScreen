@@ -8,6 +8,9 @@
 #include "Framework/Text/TextLayout.h"
 #include "Engine/DeveloperSettings.h"
 
+#include "RUntime/Core/Public/Logging/LogMacros.h"
+DECLARE_LOG_CATEGORY_EXTERN(LogLoadingScreen, Verbose, All);
+
 #include "LoadingScreenSettings.generated.h"
 
 UENUM(BlueprintType)
