@@ -56,7 +56,6 @@ public:
 	*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Slot Position")
 	FVector2D Alignment;
-
 };
 
 USTRUCT(BlueprintType)
@@ -109,7 +108,6 @@ public:
 	/** The text to display on the loading screen. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Loading Screen Text", meta = (MultiLine = "true"))
 	FText Text;
-
 };
 
 USTRUCT(BlueprintType)
@@ -139,11 +137,11 @@ public:
 
 	/** The image for each throbber piece */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Throbber", meta = (EditCondition = "bShowThrobber"))
-	FSlateBrush ThrobberImage;
+	FSlateBrush Image;
 
 	/** The slot position of the throbber */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Throbber", meta = (EditCondition = "bShowThrobber"))
-	FLoadingScreenSlotPosition ThrobberSlotPosition;
+	FLoadingScreenSlotPosition SlotPosition;
 
 	/** Should the pieces animate horizontally? */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Regular", meta = (EditCondition = "bShowThrobber"))
@@ -172,7 +170,6 @@ public:
 	/** Color and opacity */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Image", meta = (EditCondition = "bShowThrobber", sRGB = "true"))
 	FLinearColor ImageColorAndOpacity;
-
 };
 
 USTRUCT(BlueprintType)
@@ -199,7 +196,6 @@ public:
 	/** The tips to display on the load screen */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tips", meta =(MultiLine = "true"))
 	TArray<FText> Tips;
-
 };
 
 USTRUCT(BlueprintType)

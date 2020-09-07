@@ -37,8 +37,8 @@ FLoadingScreenThrobber::FLoadingScreenThrobber()
 	, ThrobberType(EThrobberLoadingType::TLT_Regular)
 	, bFlipThrobberAnimation(false)
 	, NumPiecesThrobber(6)
-	, ThrobberImage(*FCoreStyle::Get().GetBrush("Throbber.Chunk"))
-	, ThrobberSlotPosition(FLoadingScreenSlotPosition())
+	, Image(*FCoreStyle::Get().GetBrush("Throbber.Chunk"))
+	, SlotPosition(FLoadingScreenSlotPosition())
 	, AnimateHorizontally(true)
 	, AnimateVertically(true)
 	, AnimateOpacity(true)
@@ -72,11 +72,13 @@ FLoadingScreenDescription::FLoadingScreenDescription()
 	, bShowImagesAfterMovies(true)
 	, ImageStretch(EStretch::ScaleToFit)
 {
-	LoadingScreenText.SlotPosition.Anchors.y = 1.0f;
-	LoadingScreenText.SlotPosition.Offset.y = -60.0f;
+	LoadingScreenText.SlotPosition.Anchors.Maximum.Y = 1.0f;
+	LoadingScreenText.SlotPosition.Anchors.Minimum.Y = 1.0f;
+	LoadingScreenText.SlotPosition.Offset.Y = -60.0f;
 	LoadingScreenText.Text = LOCTEXT("Loading", "LOADING");
-	Throbber.SlotPosition.Anchors.y = 1.0f;
-	Throbber.SlotPosition.Offset.y = -40.0f;
+	Throbber.SlotPosition.Anchors.Maximum.Y = 1.0f;
+	Throbber.SlotPosition.Anchors.Minimum.Y = 1.0f;
+	Throbber.SlotPosition.Offset.Y = -40.0f;
 }
 
 ULoadingScreenSettings::ULoadingScreenSettings(const FObjectInitializer& Initializer)

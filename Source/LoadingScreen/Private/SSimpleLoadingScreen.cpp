@@ -87,7 +87,7 @@ void SSimpleLoadingScreen::Construct(const FArguments& InArgs, const FLoadingScr
 				.Radius(ScreenDescriptionInfo.Throbber.ThrobberRadius)
 				.Period(ScreenDescriptionInfo.Throbber.ThrobberPeriod)
 				.NumPieces(ScreenDescriptionInfo.Throbber.NumPiecesThrobber)				
-				.PieceImage(&ScreenDescriptionInfo.Throbber.ThrobberImage);
+				.PieceImage(&ScreenDescriptionInfo.Throbber.Image);
 
 			ThrobberWidget = ConstructedThrobber;
 			break;
@@ -104,7 +104,7 @@ void SSimpleLoadingScreen::Construct(const FArguments& InArgs, const FLoadingScr
 			TSharedPtr<SThrobber> ConstructedThrobber = SNew(SThrobber)
 				.Animate(Animation)
 				.NumPieces(ScreenDescriptionInfo.Throbber.NumPiecesThrobber)				
-				.PieceImage(&ScreenDescriptionInfo.Throbber.ThrobberImage);
+				.PieceImage(&ScreenDescriptionInfo.Throbber.Image);
 
 			ThrobberWidget = ConstructedThrobber;
 			break;
@@ -190,9 +190,9 @@ void SSimpleLoadingScreen::Construct(const FArguments& InArgs, const FLoadingScr
 			SNew(SConstraintCanvas)
 			// Adds the circular throbber to the canvas
 			+ SConstraintCanvas::Slot()
-			.Anchors(ScreenDescriptionInfo.Throbber.ThrobberSlotPosition.Anchors)
-			.Offset(FMargin(ScreenDescriptionInfo.Throbber.ThrobberSlotPosition.Offset))
-			.Alignment(ScreenDescriptionInfo.Throbber.ThrobberSlotPosition.Alignment)
+			.Anchors(ScreenDescriptionInfo.Throbber.SlotPosition.Anchors)
+			.Offset(FMargin(ScreenDescriptionInfo.Throbber.SlotPosition.Offset))
+			.Alignment(ScreenDescriptionInfo.Throbber.SlotPosition.Alignment)
 			.AutoSize(true)
 			.ZOrder(1)
 		[
@@ -307,7 +307,6 @@ void SSimpleLoadingScreen::HandleMoviesFinishedPlaying()
 		{					
 			// Reset the time so incase if when we're visible its not shorter than its supposed to be
 			LastToolTipUpdate = FPlatformTime::Seconds();
-		
 
 			CurrentToolTipWidget->SetVisibility(ScreenDescriptionInfo.LoadingScreenTips.SlotText.bShouldShowText 
 				? EVisibility::SelfHitTestInvisible : EVisibility::Hidden);
