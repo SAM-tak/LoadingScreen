@@ -30,4 +30,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Loading Screen")
 	static void SetLoadingScreen(FLoadingScreenDescription InDescription);
 
+	/**
+	 * Show Loading Screen manually.
+	 * NOTE: This function is test purpose in PIE.
+	 */
+	UFUNCTION(BlueprintCallable, Category = "Loading Screen")
+	static void TestLoadingScreen(FLoadingScreenDescription InDescription);
 };

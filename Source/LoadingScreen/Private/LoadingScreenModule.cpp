@@ -2,8 +2,14 @@
 #include "LoadingScreenSettings.h"
 #include "SSimpleLoadingScreen.h"
 #include "Framework/Application/SlateApplication.h"
+#include "Widgets/SViewport.h"
+
+#include "Runtime/Core/Public/Logging/LogMacros.h"
 
 #define LOCTEXT_NAMESPACE "LoadingScreen"
+
+DECLARE_LOG_CATEGORY_EXTERN(LogLoadingScreen, Verbose, All);
+DEFINE_LOG_CATEGORY(LogLoadingScreen);
 
 class FLoadingScreenModule : public ILoadingScreenModule
 {
@@ -18,12 +24,14 @@ public:
 		return true;
 	}
 
+	virtual void TestLoadingScreen(const FLoadingScreenDescription& ScreenDescription) override;
+
 private:
 	void HandlePrepareLoadingScreen();
 
 	void HandleMovieClipFinished(const FString& FinishedClip);
 
-	void BeginLoadingScreen(const FLoadingScreenDescription& ScreenDescription);	
+	void BeginLoadingScreen(const FLoadingScreenDescription& ScreenDescription);
 
 	TSharedPtr<class SSimpleLoadingScreen> WidgetLoadingScreen;
 };
@@ -32,7 +40,6 @@ IMPLEMENT_MODULE(FLoadingScreenModule, LoadingScreen)
 
 FLoadingScreenModule::FLoadingScreenModule()
 {
-
 }
 
 void FLoadingScreenModule::StartupModule()
@@ -51,9 +58,9 @@ void FLoadingScreenModule::StartupModule()
 		}
 
 		if ( IsMoviePlayerEnabled() )
-		{			
+		{
 			// Binds the delegate to auto fire the loading screen code when a level changes and when a movie finishes
-			GetMoviePlayer()->OnPrepareLoadingScreen().AddRaw(this, &FLoadingScreenModule::HandlePrepareLoadingScreen);			
+			GetMoviePlayer()->OnPrepareLoadingScreen().AddRaw(this, &FLoadingScreenModule::HandlePrepareLoadingScreen);
 		}
 
 		// Prepare the startup screen, the PrepareLoadingScreen callback won't be called
@@ -69,8 +76,22 @@ void FLoadingScreenModule::ShutdownModule()
 		if (WidgetLoadingScreen)
 		{
 			WidgetLoadingScreen.Reset();
-		}				
+		}
 		GetMoviePlayer()->OnPrepareLoadingScreen().RemoveAll(this);
+	}
+}
+
+
+void FLoadingScreenModule::TestLoadingScreen(const FLoadingScreenDescription& ScreenDescription)
+{
+	UE_LOG(LogLoadingScreen, Verbose, TEXT("TestLoadingScreen"));
+	if (FSlateApplication::IsInitialized())
+	{
+		auto widgetLoadingScreen = SNew(SSimpleLoadingScreen, ScreenDescription)
+								  .bShowThrobber(ScreenDescription.Throbber.bShowThrobber)
+								  .ThrobberType(ScreenDescription.Throbber.ThrobberType);
+		widgetLoadingScreen->HandleMoviesFinishedPlaying();
+		FSlateApplication::Get().GetGameViewport()->SetContent(widgetLoadingScreen);
 	}
 }
 
@@ -138,7 +159,7 @@ void FLoadingScreenModule::BeginLoadingScreen(const FLoadingScreenDescription& S
 		GetMoviePlayer()->OnMovieClipFinished().RemoveAll(this);
 		
 		GetMoviePlayer()->OnMovieClipFinished().AddRaw(this, &FLoadingScreenModule::HandleMovieClipFinished);
-	}	
+	}
 
 	// This happens last after everything has been prepared ahead of time
 	GetMoviePlayer()->SetupLoadingScreen(LoadingScreen);
@@ -151,6 +172,5 @@ void FLoadingScreenModule::BeginLoadingScreen(const FLoadingScreenDescription& S
 		}
 	}
 }
-
 
 #undef LOCTEXT_NAMESPACE

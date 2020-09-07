@@ -9,7 +9,8 @@ FLoadingScreenSlotPosition::FLoadingScreenSlotPosition()
 	: Anchors(0.5f)
 	, Offset(FVector::ZeroVector)
 	, Alignment(FVector::ZeroVector)
-{ }
+{
+}
 
 FLoadingScreenSlotText::FLoadingScreenSlotText()
 	: bShouldShowText(true)
@@ -28,7 +29,8 @@ FLoadingScreenSlotText::FLoadingScreenSlotText()
 FLoadingScreenText::FLoadingScreenText()
 	: SlotText(FLoadingScreenSlotText())
 	, SlotPosition(FLoadingScreenSlotPosition())
-{ }
+{
+}
 
 FLoadingScreenThrobber::FLoadingScreenThrobber()
 	: bShowThrobber(true)
@@ -44,13 +46,15 @@ FLoadingScreenThrobber::FLoadingScreenThrobber()
 	, ThrobberRadius(16.0f)
 	, ImageBrush(*FCoreStyle::Get().GetDefaultBrush())
 	, ImageColorAndOpacity(FLinearColor::White)
-{ }
+{
+}
 
 FLoadingScreenTips::FLoadingScreenTips()
 	: SlotText(FLoadingScreenSlotText())
 	, SlotPosition(FLoadingScreenSlotPosition())
 	, TimeBetweenTips(0)
-{ }
+{
+}
 
 FLoadingScreenDescription::FLoadingScreenDescription()
 	: bShowWidget(true)
@@ -67,14 +71,17 @@ FLoadingScreenDescription::FLoadingScreenDescription()
 	, LoadingScreenTips(FLoadingScreenTips())
 	, bShowImagesAfterMovies(true)
 	, ImageStretch(EStretch::ScaleToFit)
-{ 
+{
+	LoadingScreenText.SlotPosition.Anchors.y = 1.0f;
+	LoadingScreenText.SlotPosition.Offset.y = -60.0f;
 	LoadingScreenText.Text = LOCTEXT("Loading", "LOADING");
+	Throbber.SlotPosition.Anchors.y = 1.0f;
+	Throbber.SlotPosition.Offset.y = -40.0f;
 }
 
 ULoadingScreenSettings::ULoadingScreenSettings(const FObjectInitializer& Initializer)
 	: Super(Initializer)
-{	
-
+{
 }
 
 #undef LOCTEXT_NAMESPACE

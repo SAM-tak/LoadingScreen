@@ -1,5 +1,5 @@
 #include "LoadingScreenFunctionLibrary.h"
-
+#include "ILoadingScreenModule.h"
 
 FLoadingScreenDescription ULoadingScreenFunctionLibrary::GetStartupLoadingScreen()
 {
@@ -14,4 +14,10 @@ FLoadingScreenDescription ULoadingScreenFunctionLibrary::GetDefaultLoadingScreen
 void ULoadingScreenFunctionLibrary::SetLoadingScreen(FLoadingScreenDescription InDescription)
 {
 	GetMutableDefault<ULoadingScreenSettings>()->DefaultScreen = InDescription;
+}
+
+void ULoadingScreenFunctionLibrary::TestLoadingScreen(FLoadingScreenDescription InDescription)
+{
+	ILoadingScreenModule& LoadingScreenModule = ILoadingScreenModule::Get();
+	LoadingScreenModule.TestLoadingScreen(InDescription);
 }

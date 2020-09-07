@@ -23,7 +23,7 @@
 // SSimpleLoadingScreen
 
 static float PointSizeToSlateUnits(float PointSize)
-{	
+{
 	const float SlateFreeTypeHorizontalResolutionDPI = 96.0f;
 	const float FreeTypeNativeDPI = 72.0f;
 	const float PixelSize = PointSize * (SlateFreeTypeHorizontalResolutionDPI / FreeTypeNativeDPI);
@@ -32,7 +32,7 @@ static float PointSizeToSlateUnits(float PointSize)
 }
 
 void SSimpleLoadingScreen::Construct(const FArguments& InArgs, const FLoadingScreenDescription& InScreenDescription)
-{	
+{
 	LastToolTipUpdate = -1.0f;
 
 	ScreenDescriptionInfo = InScreenDescription;
@@ -73,7 +73,7 @@ void SSimpleLoadingScreen::Construct(const FArguments& InArgs, const FLoadingScr
 				]
 			];
 		}
-	}	
+	}
 
 	// Handles creating the throbber widget	
 	{
@@ -93,7 +93,7 @@ void SSimpleLoadingScreen::Construct(const FArguments& InArgs, const FLoadingScr
 			break;
 		}
 		case EThrobberLoadingType::TLT_Regular:		
-		{			
+		{
 			// Decide which animation to play for regular throbber
 			const int32 AnimationParams = (ScreenDescriptionInfo.Throbber.AnimateVertically ? SThrobber::Vertical : 0) |
 				(ScreenDescriptionInfo.Throbber.AnimateHorizontally ? SThrobber::Horizontal : 0) |
@@ -133,8 +133,8 @@ void SSimpleLoadingScreen::Construct(const FArguments& InArgs, const FLoadingScr
 			const float ThrobberScale = (float)((ScreenDescriptionInfo.Throbber.bFlipThrobberAnimation) ? -1 : 1);
 			ThrobberWidget->SetRenderTransform(FSlateRenderTransform(FScale2D(ThrobberScale, 1.0f)));
 		}
-			// Show throbber if allowed
-			ThrobberWidget->SetVisibility((bShowThrobber && bShowUiOnConstruct) ? EVisibility::SelfHitTestInvisible : EVisibility::Hidden);		
+		// Show throbber if allowed
+		ThrobberWidget->SetVisibility((bShowThrobber && bShowUiOnConstruct) ? EVisibility::SelfHitTestInvisible : EVisibility::Hidden);		
 	}
 
 	// Construct tooltip widget
@@ -188,50 +188,49 @@ void SSimpleLoadingScreen::Construct(const FArguments& InArgs, const FLoadingScr
 		SNew(SSafeZone)
 		[
 			SNew(SConstraintCanvas)
-
 			// Adds the circular throbber to the canvas
-		+ SConstraintCanvas::Slot()
-		.Anchors(ScreenDescriptionInfo.Throbber.ThrobberSlotPosition.Anchors)
-		.Offset(FMargin(ScreenDescriptionInfo.Throbber.ThrobberSlotPosition.Offset))
-		.Alignment(ScreenDescriptionInfo.Throbber.ThrobberSlotPosition.Alignment)
-		.AutoSize(true)
-		.ZOrder(1)
+			+ SConstraintCanvas::Slot()
+			.Anchors(ScreenDescriptionInfo.Throbber.ThrobberSlotPosition.Anchors)
+			.Offset(FMargin(ScreenDescriptionInfo.Throbber.ThrobberSlotPosition.Offset))
+			.Alignment(ScreenDescriptionInfo.Throbber.ThrobberSlotPosition.Alignment)
+			.AutoSize(true)
+			.ZOrder(1)
 		[
 			ThrobberWidget.ToSharedRef()
 		]
 
-	// Adds the tip text to the canvas
-	+ SConstraintCanvas::Slot()
-		.Anchors(ScreenDescriptionInfo.LoadingScreenTips.SlotPosition.Anchors)
-		.Offset(FMargin(ScreenDescriptionInfo.LoadingScreenTips.SlotPosition.Offset))
-		.Alignment(ScreenDescriptionInfo.LoadingScreenTips.SlotPosition.Alignment)
-		.AutoSize(true)
-		.ZOrder(1)
-		[
-			CurrentToolTipWidget.ToSharedRef()
-		]
+		// Adds the tip text to the canvas
+		+ SConstraintCanvas::Slot()
+			.Anchors(ScreenDescriptionInfo.LoadingScreenTips.SlotPosition.Anchors)
+			.Offset(FMargin(ScreenDescriptionInfo.LoadingScreenTips.SlotPosition.Offset))
+			.Alignment(ScreenDescriptionInfo.LoadingScreenTips.SlotPosition.Alignment)
+			.AutoSize(true)
+			.ZOrder(1)
+			[
+				CurrentToolTipWidget.ToSharedRef()
+			]
 
-	// Adds the description text to the canvas
-	+ SConstraintCanvas::Slot()
-		.Anchors(ScreenDescriptionInfo.LoadingScreenDescription.SlotPosition.Anchors)
-		.Offset(FMargin(ScreenDescriptionInfo.LoadingScreenDescription.SlotPosition.Offset))
-		.Alignment(ScreenDescriptionInfo.LoadingScreenDescription.SlotPosition.Alignment)
-		.AutoSize(true)
-		.ZOrder(2)
-		[
-			DescriptionTextWidget.ToSharedRef()
-		]
+		// Adds the description text to the canvas
+		+ SConstraintCanvas::Slot()
+			.Anchors(ScreenDescriptionInfo.LoadingScreenDescription.SlotPosition.Anchors)
+			.Offset(FMargin(ScreenDescriptionInfo.LoadingScreenDescription.SlotPosition.Offset))
+			.Alignment(ScreenDescriptionInfo.LoadingScreenDescription.SlotPosition.Alignment)
+			.AutoSize(true)
+			.ZOrder(2)
+			[
+				DescriptionTextWidget.ToSharedRef()
+			]
 
-	// Adds the loading text to the canvas
-	+ SConstraintCanvas::Slot()
-		.Anchors(ScreenDescriptionInfo.LoadingScreenText.SlotPosition.Anchors)
-		.Offset(FMargin(ScreenDescriptionInfo.LoadingScreenText.SlotPosition.Offset))
-		.Alignment(ScreenDescriptionInfo.LoadingScreenText.SlotPosition.Alignment)
-		.AutoSize(true)
-		.ZOrder(3)
-		[
-			LoadingTextWidget.ToSharedRef()
-		]
+		// Adds the loading text to the canvas
+		+ SConstraintCanvas::Slot()
+			.Anchors(ScreenDescriptionInfo.LoadingScreenText.SlotPosition.Anchors)
+			.Offset(FMargin(ScreenDescriptionInfo.LoadingScreenText.SlotPosition.Offset))
+			.Alignment(ScreenDescriptionInfo.LoadingScreenText.SlotPosition.Alignment)
+			.AutoSize(true)
+			.ZOrder(3)
+			[
+				LoadingTextWidget.ToSharedRef()
+			]
 		]
 	];
 	
@@ -272,7 +271,7 @@ void SSimpleLoadingScreen::Tick(const FGeometry& AllottedGeometry, const double 
 }
 
 void SSimpleLoadingScreen::HandleMoviesFinishedPlaying()
-{	
+{
 	// Show the background if we're allowed to
 	if (ScreenDescriptionInfo.bShowImagesAfterMovies)
 	{
@@ -324,7 +323,7 @@ float SSimpleLoadingScreen::GetDPIScale() const
 }
 
 FText SSimpleLoadingScreen::GetRandomToolTip() 
-{	
+{
 	// Decides a random tip to show thats not the current tooltip
 	{
 		const int32 Total = ScreenDescriptionInfo.LoadingScreenTips.Tips.Num();

@@ -7,7 +7,6 @@
  */
 class ILoadingScreenModule : public IModuleInterface
 {
-
 public:
 
 	/**
@@ -18,8 +17,14 @@ public:
 	 */
 	static inline ILoadingScreenModule& Get()
 	{
-		return FModuleManager::LoadModuleChecked< ILoadingScreenModule >("LoadingScreen");
+		return FModuleManager::LoadModuleChecked<ILoadingScreenModule>("LoadingScreen");
 	}
+
+	/**
+	 * Kicks off the loading screen for in game loading (not startup)
+	 * NOTE : test purpose
+	 */
+	virtual void TestLoadingScreen(const FLoadingScreenDescription& ScreenDescription) = 0;
 
 	/**
 	 * Checks to see if this module is loaded and ready.  It is only valid to call Get() if IsAvailable() returns true.
@@ -31,4 +36,3 @@ public:
 		return FModuleManager::Get().IsModuleLoaded( "LoadingScreen" );
 	}
 };
-
